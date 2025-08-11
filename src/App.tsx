@@ -1,22 +1,59 @@
-import { TournamentTableCard } from "@/components";
-import { TournamentProvider } from "@/contexts/TournamentContext";
+import { TournamentTableCard, AddTeamForm } from "@/components";
+import {
+  TournamentProvider,
+  useTournament,
+} from "@/contexts/TournamentContext";
+
+function AppContent() {
+  const { getTournament, getStandings } = useTournament();
+
+  const premierLeagueData = getTournament("premier-league");
+  const eurobasketData = getTournament("eurobasket");
+  const wimbledonData = getTournament("wimbledon");
+
+  const premierLeagueStandings = getStandings("premier-league");
+  const eurobasketStandings = getStandings("eurobasket");
+  const wimbledonStandings = getStandings("wimbledon");
+
+  return (
+    <div className="min-h-screen bg-gray-100 p-8">
+      <div className="max-w-7xl mx-auto">
+        <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">
+          Sports Tournament Manager
+        </h1>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <TournamentTableCard
+            tableName={premierLeagueData.name}
+            sportType={premierLeagueData.id}
+            standings={premierLeagueStandings}
+          >
+            <AddTeamForm sportType="premier-league" entityName="Team" />
+          </TournamentTableCard>
+
+          <TournamentTableCard
+            tableName={eurobasketData.name}
+            sportType={eurobasketData.id}
+            standings={eurobasketStandings}
+            iconName="basketball"
+          />
+
+          <TournamentTableCard
+            tableName={wimbledonData.name}
+            sportType={wimbledonData.id}
+            standings={wimbledonStandings}
+            iconName="tennis"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function App() {
   return (
     <TournamentProvider>
-      <div className="min-h-screen bg-gray-100 p-8">
-        <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">
-            Sports Tournament Manager
-          </h1>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <TournamentTableCard sportType="premier-league" />
-            <TournamentTableCard sportType="eurobasket" iconName="basketball" />
-            <TournamentTableCard sportType="wimbledon" iconName="tennis" />
-          </div>
-        </div>
-      </div>
+      <AppContent />
     </TournamentProvider>
   );
 }
