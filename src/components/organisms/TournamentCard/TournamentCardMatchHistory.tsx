@@ -17,7 +17,6 @@ function TournamentCardMatchHistory({ sportType }: MatchHistoryProps) {
   return (
     matches.length > 0 && (
       <div className="space-y-2">
-        <h4 className="text-md font-semibold">Match History</h4>
         <ul className="divide-y divide-gray-200">
           {matches.map((match, index) => (
             <li key={index} className="py-2 text-sm">

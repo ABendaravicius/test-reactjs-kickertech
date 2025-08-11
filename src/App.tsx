@@ -1,4 +1,11 @@
-import { TournamentCard, AddTeamForm, AddScoreForm } from "@/components";
+import {
+  TournamentCard,
+  AddTeamForm,
+  AddScoreForm,
+  Modal,
+  Button,
+} from "@/components";
+import { useState } from "react";
 import {
   TournamentProvider,
   useTournament,
@@ -6,6 +13,17 @@ import {
 
 function AppContent() {
   const { getTournament, getStandings } = useTournament();
+  const [modalState, setModalState] = useState<{
+    isOpen: boolean;
+    type: "addTeam" | "addScore" | null;
+    sportType: string | null;
+    entityName: string;
+  }>({
+    isOpen: false,
+    type: null,
+    sportType: null,
+    entityName: "Team",
+  });
 
   const premierLeagueData = getTournament("premier-league");
   const eurobasketData = getTournament("eurobasket");
@@ -14,6 +32,23 @@ function AppContent() {
   const premierLeagueStandings = getStandings("premier-league");
   const eurobasketStandings = getStandings("eurobasket");
   const wimbledonStandings = getStandings("wimbledon");
+
+  const openModal = (
+    type: "addTeam" | "addScore",
+    sportType: string,
+    entityName: string = "Team"
+  ) => {
+    setModalState({ isOpen: true, type, sportType, entityName });
+  };
+
+  const closeModal = () => {
+    setModalState({
+      isOpen: false,
+      type: null,
+      sportType: null,
+      entityName: "Team",
+    });
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">
@@ -27,6 +62,7 @@ function AppContent() {
             tableName={premierLeagueData.name}
             sportType={premierLeagueData.id}
             standings={premierLeagueStandings}
+            showTableHeader={false}
           >
             <div className="space-y-6">
               <AddTeamForm sportType={premierLeagueData.id} entityName="Team" />
@@ -43,15 +79,74 @@ function AppContent() {
             standings={eurobasketStandings}
             iconName="basketball"
             displayMatchHistory
-          />
+          >
+            <div className="flex gap-3 justify-between">
+              <Button
+                onClick={() => openModal("addTeam", "eurobasket", "Team")}
+                iconName="Plus"
+                iconSize={24}
+              >
+                Add Team
+              </Button>
+              <Button
+                onClick={() => openModal("addScore", "eurobasket", "Team")}
+                iconName="Plus"
+                iconSize={24}
+              >
+                Add Score
+              </Button>
+            </div>
+          </TournamentCard>
 
           <TournamentCard
             tableName={wimbledonData.name}
             sportType={wimbledonData.id}
             standings={wimbledonStandings}
             iconName="tennis"
-          />
+          >
+            <div className="flex gap-3 justify-between">
+              <Button
+                onClick={() => openModal("addTeam", "wimbledon", "Player")}
+                iconName="Plus"
+                iconSize={24}
+              >
+                Add Player
+              </Button>
+              <Button
+                onClick={() => openModal("addScore", "wimbledon", "Player")}
+                iconName="Plus"
+                iconSize={24}
+              >
+                Add Score
+              </Button>
+            </div>
+          </TournamentCard>
         </div>
+
+        <Modal
+          isOpen={modalState.isOpen}
+          onClose={closeModal}
+          title={
+            modalState.type === "addTeam"
+              ? `Add ${modalState.entityName}`
+              : `Add Score`
+          }
+        >
+          {modalState.type === "addTeam" && modalState.sportType && (
+            <AddTeamForm
+              sportType={modalState.sportType as any}
+              entityName={modalState.entityName}
+              onSuccess={closeModal}
+            />
+          )}
+          {modalState.type === "addScore" && modalState.sportType && (
+            <AddScoreForm
+              sportType={modalState.sportType as any}
+              entityName={modalState.entityName}
+              onSuccess={closeModal}
+            />
+          )}
+        </Modal>
       </div>
     </div>
   );

@@ -13,6 +13,7 @@ interface TournamentCardProps {
   standings: Player[];
   children?: ReactNode;
   displayMatchHistory?: boolean;
+  showTableHeader?: boolean;
 }
 
 function TournamentCard({
@@ -23,6 +24,7 @@ function TournamentCard({
   standings,
   children,
   displayMatchHistory = false,
+  showTableHeader = true,
 }: TournamentCardProps) {
   const headers = useTableHeaders(sportType);
 
@@ -38,7 +40,11 @@ function TournamentCard({
       <div className="p-4 space-y-4">
         {children}
         {displayMatchHistory && <MatchHistory sportType={sportType} />}
-        <Table headers={headers} data={standings} />
+        <Table
+          headers={headers}
+          data={standings}
+          showTableHeader={showTableHeader}
+        />
       </div>
     </div>
   );

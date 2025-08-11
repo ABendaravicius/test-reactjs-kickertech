@@ -6,9 +6,14 @@ import { Button } from "@/components";
 interface AddTeamFormProps {
   sportType: SportType;
   entityName?: string; // "Team" or "Player"
+  onSuccess?: () => void;
 }
 
-function AddTeamForm({ sportType, entityName = "Team" }: AddTeamFormProps) {
+function AddTeamForm({
+  sportType,
+  entityName = "Team",
+  onSuccess,
+}: AddTeamFormProps) {
   const [teamName, setTeamName] = useState("");
   const [error, setError] = useState("");
   const { addPlayer } = useTournament();
@@ -21,6 +26,7 @@ function AddTeamForm({ sportType, entityName = "Team" }: AddTeamFormProps) {
       const success = addPlayer(sportType, teamName.trim());
       if (success) {
         setTeamName("");
+        onSuccess?.();
       } else {
         setError(`${entityName} "${teamName.trim()}" already exists`);
       }
@@ -45,7 +51,6 @@ function AddTeamForm({ sportType, entityName = "Team" }: AddTeamFormProps) {
             </Button>
           </div>
 
-          {/* Error Message */}
           {error && (
             <div className="text-red-600 text-sm bg-red-50 p-2 rounded">
               {error}

@@ -5,12 +5,14 @@ interface TableProps {
   headers: TableHeader[];
   data: Player[];
   className?: string;
+  showTableHeader: boolean;
 }
 
 function TournamentTableCardTable({
   headers,
   data,
   className = "",
+  showTableHeader,
 }: TableProps) {
   if (data.length === 0) {
     return (
@@ -19,43 +21,48 @@ function TournamentTableCardTable({
   }
 
   return (
-    <div className={`overflow-y-auto ${className}`}>
-      <table className="w-full text-sm">
-        <thead>
-          <tr className="border-b">
-            {headers.map((header) => (
-              <th
-                key={header.id}
-                className={`py-2 font-semibold ${
-                  header.align === "center"
-                    ? "text-center"
-                    : header.align === "right"
-                    ? "text-right"
-                    : "text-left"
-                }`}
-              >
-                {header.label}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((player) => (
-            <tr key={player.id} className="border-b">
+    <div>
+      {showTableHeader && (
+        <h3 className="text-lg font-semibold">Score table:</h3>
+      )}
+      <div className={`overflow-y-auto ${className}`}>
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b">
               {headers.map((header) => (
-                <td
+                <th
                   key={header.id}
-                  className={`py-2 ${
-                    header.align === "left" ? "text-left" : "text-center"
-                  } ${header.key === "points" && "font-semibold"}`}
+                  className={`py-2 font-semibold ${
+                    header.align === "center"
+                      ? "text-center"
+                      : header.align === "right"
+                      ? "text-right"
+                      : "text-left"
+                  }`}
                 >
-                  {player[header.key]}
-                </td>
+                  {header.label}
+                </th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {data.map((player) => (
+              <tr key={player.id} className="border-b">
+                {headers.map((header) => (
+                  <td
+                    key={header.id}
+                    className={`py-2 ${
+                      header.align === "left" ? "text-left" : "text-center"
+                    } ${header.key === "points" && "font-semibold"}`}
+                  >
+                    {player[header.key]}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

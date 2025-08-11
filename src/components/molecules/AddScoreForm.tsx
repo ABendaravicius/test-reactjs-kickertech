@@ -6,9 +6,14 @@ import { Button } from "@/components";
 interface AddScoreFormProps {
   sportType: SportType;
   entityName?: string; // "Team" or "Player"
+  onSuccess?: () => void;
 }
 
-function AddScoreForm({ sportType, entityName = "Team" }: AddScoreFormProps) {
+function AddScoreForm({
+  sportType,
+  entityName = "Team",
+  onSuccess,
+}: AddScoreFormProps) {
   const [homeTeamId, setHomeTeamId] = useState("");
   const [awayTeamId, setAwayTeamId] = useState("");
   const [homeScore, setHomeScore] = useState("");
@@ -18,7 +23,6 @@ function AddScoreForm({ sportType, entityName = "Team" }: AddScoreFormProps) {
   const { addMatch, getTournament } = useTournament();
   const { matches, players } = getTournament(sportType);
 
-  // Check if match has already been played
   const hasMatchBeenPlayed = (
     player1Id: string,
     player2Id: string
@@ -73,6 +77,7 @@ function AddScoreForm({ sportType, entityName = "Team" }: AddScoreFormProps) {
     setAwayTeamId("");
     setHomeScore("");
     setAwayScore("");
+    onSuccess?.();
   };
 
   const isFormValid =
