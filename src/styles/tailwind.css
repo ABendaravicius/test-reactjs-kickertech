@@ -1,0 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Intel+One+Mono:ital,wght@0,300..700;1,300..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-premier-primary: #2563eb;
+  --color-premier-secondary: #42075b;
+  --color-eurobasket-primary: #ff6900;
+  --color-eurobasket-secondary: #002f26;
+  --color-eurobasket-tertiary: #00201b;
+  --color-wimbledon-primary: #006633;
+  --color-wimbledon-secondary: #42075b;
+  --color-dark-200: "#efefef";
+  --color-dark-300: "#e5e7eb";
+
+  --font-sans: "Inter", sans-serif;
+  --font-sport: "Montserrat", sans-serif;
+  --font-mono: "Space Mono", monospace;
+}
