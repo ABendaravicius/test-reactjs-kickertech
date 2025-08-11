@@ -7,4 +7,4 @@ export { default as AddTeamForm } from "./molecules/AddTeamForm";
 export { default as AddScoreForm } from "./molecules/AddScoreForm";
 
 // Organisms
-export { default as TournamentTableCard } from "./organisms/TournamentTableCard";
+export { default as TournamentCard } from "./organisms/TournamentCard";

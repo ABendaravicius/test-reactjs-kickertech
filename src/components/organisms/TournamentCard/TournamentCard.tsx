@@ -1,10 +1,10 @@
 import type { ReactNode } from "react";
-import { default as Header } from "./TournamentTableCardHeader";
-import { default as Table } from "./TournamentTableCardTable";
+import { default as Header } from "./TournamentCardHeader";
+import { default as Table } from "./TournamentCardTable";
 import type { Player, SportType } from "@/types/tournament";
 import { useTableHeaders } from "@/hooks/useTableHeaders";
 
-interface TournamentTableCardProps {
+interface TournamentCardProps {
   tableName: string;
   iconName?: string;
   className?: string;
@@ -13,14 +13,14 @@ interface TournamentTableCardProps {
   children?: ReactNode;
 }
 
-function TournamentTableCard({
+function TournamentCard({
   tableName,
   iconName,
   className = "",
   sportType,
   standings,
   children,
-}: TournamentTableCardProps) {
+}: TournamentCardProps) {
   const headers = useTableHeaders(sportType);
 
   return (
@@ -40,4 +40,4 @@ function TournamentTableCard({
   );
 }
 
-export default TournamentTableCard;
+export default TournamentCard;
