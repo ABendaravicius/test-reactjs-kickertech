@@ -1,4 +1,4 @@
-import { TournamentTableCard, AddTeamForm } from "@/components";
+import { TournamentTableCard, AddTeamForm, AddScoreForm } from "@/components";
 import {
   TournamentProvider,
   useTournament,
@@ -28,7 +28,13 @@ function AppContent() {
             sportType={premierLeagueData.id}
             standings={premierLeagueStandings}
           >
-            <AddTeamForm sportType="premier-league" entityName="Team" />
+            <div className="space-y-6">
+              <AddTeamForm sportType={premierLeagueData.id} entityName="Team" />
+              <AddScoreForm
+                sportType={premierLeagueData.id}
+                entityName="Team"
+              />
+            </div>
           </TournamentTableCard>
 
           <TournamentTableCard
@@ -36,14 +42,14 @@ function AppContent() {
             sportType={eurobasketData.id}
             standings={eurobasketStandings}
             iconName="basketball"
-          />
+          ></TournamentTableCard>
 
           <TournamentTableCard
             tableName={wimbledonData.name}
             sportType={wimbledonData.id}
             standings={wimbledonStandings}
             iconName="tennis"
-          />
+          ></TournamentTableCard>
         </div>
       </div>
     </div>
