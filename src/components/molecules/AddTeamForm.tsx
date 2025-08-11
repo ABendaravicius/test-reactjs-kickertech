@@ -10,13 +10,20 @@ interface AddTeamFormProps {
 
 function AddTeamForm({ sportType, entityName = "Team" }: AddTeamFormProps) {
   const [teamName, setTeamName] = useState("");
+  const [error, setError] = useState("");
   const { addPlayer } = useTournament();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (teamName) {
-      addPlayer(sportType, teamName.trim());
-      setTeamName("");
+    setError("");
+
+    if (teamName.trim()) {
+      const success = addPlayer(sportType, teamName.trim());
+      if (success) {
+        setTeamName("");
+      } else {
+        setError(`${entityName} "${teamName.trim()}" already exists`);
+      }
     }
   };
 
@@ -24,17 +31,26 @@ function AddTeamForm({ sportType, entityName = "Team" }: AddTeamFormProps) {
     <div className="space-y-4">
       <h3 className="text-lg font-semibold">Add {entityName}</h3>
       <form onSubmit={handleSubmit}>
-        <div className="flex gap-3">
-          <input
-            type="text"
-            value={teamName}
-            onChange={(e) => setTeamName(e.target.value)}
-            placeholder={`${entityName} Name`}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
-          <Button type="submit" disabled={!teamName} className="w-fit">
-            Add
-          </Button>
+        <div className="space-y-3">
+          <div className="flex gap-3">
+            <input
+              type="text"
+              value={teamName}
+              onChange={(e) => setTeamName(e.target.value)}
+              placeholder={`${entityName} Name`}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+            <Button type="submit" disabled={!teamName.trim()} className="w-fit">
+              Add
+            </Button>
+          </div>
+
+          {/* Error Message */}
+          {error && (
+            <div className="text-red-600 text-sm bg-red-50 p-2 rounded">
+              {error}
+            </div>
+          )}
         </div>
       </form>
     </div>

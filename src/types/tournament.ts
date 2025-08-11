@@ -32,7 +32,7 @@ export interface TournamentState {
 
 export interface TournamentContextType {
   state: TournamentState;
-  addPlayer: (sportType: SportType, playerName: string) => void;
+  addPlayer: (sportType: SportType, playerName: string) => boolean;
   addMatch: (
     sportType: SportType,
     player1Id: string,

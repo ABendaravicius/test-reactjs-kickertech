@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { default as Header } from "./TournamentCardHeader";
 import { default as Table } from "./TournamentCardTable";
+import { default as MatchHistory } from "./TournamentCardMatchHistory";
 import type { Player, SportType } from "@/types/tournament";
 import { useTableHeaders } from "@/hooks/useTableHeaders";
 
@@ -11,6 +12,7 @@ interface TournamentCardProps {
   sportType: SportType;
   standings: Player[];
   children?: ReactNode;
+  displayMatchHistory?: boolean;
 }
 
 function TournamentCard({
@@ -20,6 +22,7 @@ function TournamentCard({
   sportType,
   standings,
   children,
+  displayMatchHistory = false,
 }: TournamentCardProps) {
   const headers = useTableHeaders(sportType);
 
@@ -34,6 +37,7 @@ function TournamentCard({
       />
       <div className="p-4 space-y-4">
         {children}
+        {displayMatchHistory && <MatchHistory sportType={sportType} />}
         <Table headers={headers} data={standings} />
       </div>
     </div>

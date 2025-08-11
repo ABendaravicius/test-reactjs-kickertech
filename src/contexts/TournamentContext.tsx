@@ -1,5 +1,11 @@
 import type { ReactNode } from "react";
-import { createContext, useContext, useReducer, useEffect } from "react";
+import {
+  createContext,
+  useContext,
+  useReducer,
+  useEffect,
+  useState,
+} from "react";
 import type {
   TournamentState,
   TournamentContextType,
@@ -176,8 +182,8 @@ interface TournamentProviderProps {
 
 export function TournamentProvider({ children }: TournamentProviderProps) {
   const [state, dispatch] = useReducer(tournamentReducer, initialState);
+  const [isInitialized, setIsInitialized] = useState(false);
 
-  // Load data from localStorage on mount
   useEffect(() => {
     const savedData = localStorage.getItem(STORAGE_KEY);
     if (savedData) {
@@ -188,15 +194,27 @@ export function TournamentProvider({ children }: TournamentProviderProps) {
         console.error("Failed to load tournament data:", error);
       }
     }
+    setIsInitialized(true);
   }, []);
 
-  // Save data to localStorage whenever state changes
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  }, [state]);
+    if (isInitialized) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+  }, [state, isInitialized]);
 
-  const addPlayer = (sportType: SportType, playerName: string) => {
+  const addPlayer = (sportType: SportType, playerName: string): boolean => {
+    const tournament = state.tournaments[sportType];
+    const playerExists = tournament.players.some(
+      (player) => player.name.toLowerCase() === playerName.toLowerCase()
+    );
+
+    if (playerExists) {
+      return false;
+    }
+
     dispatch({ type: "ADD_PLAYER", payload: { sportType, playerName } });
+    return true;
   };
 
   const addMatch = (

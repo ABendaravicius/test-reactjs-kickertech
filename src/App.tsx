@@ -42,6 +42,7 @@ function AppContent() {
             sportType={eurobasketData.id}
             standings={eurobasketStandings}
             iconName="basketball"
+            displayMatchHistory
           />
 
           <TournamentCard
