@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import Header from "./Header";
+import { default as Header } from "./TournamentTableCardHeader";
 
 interface TournamentTableCardProps {
   tableName: string;
