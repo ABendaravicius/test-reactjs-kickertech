@@ -12,9 +12,15 @@ function TournamentTableCardHeader({
   className = "",
 }: HeaderProps) {
   return (
-    <div className={`flex items-center gap-4 py-6 px-4 ${className}`}>
+    <div
+      className="flex items-center gap-4 py-5 px-4 h-19"
+      style={{
+        backgroundColor: "var(--color-header)",
+        color: "var(--color-header-text)",
+      }}
+    >
       {iconName && <Icon name={iconName} size={32} />}
-      <h2>{title}</h2>
+      <h2 className={className}>{title}</h2>
     </div>
   );
 }

@@ -2,17 +2,47 @@
 @import "tailwindcss";
 
 @theme {
-  --color-premier-primary: #2563eb;
-  --color-premier-secondary: #42075b;
-  --color-eurobasket-primary: #ff6900;
-  --color-eurobasket-secondary: #002f26;
-  --color-eurobasket-tertiary: #00201b;
-  --color-wimbledon-primary: #006633;
-  --color-wimbledon-secondary: #42075b;
-  --color-dark-200: "#efefef";
-  --color-dark-300: "#e5e7eb";
+  --color-dark-50: #f9fafb;
+  --color-dark-100: #f3f4f6;
+  --color-dark-200: #efefef;
+  --color-dark-300: #e5e7eb;
 
   --font-sans: "Inter", sans-serif;
   --font-sport: "Montserrat", sans-serif;
   --font-mono: "Space Mono", monospace;
+}
+
+@layer base {
+  body {
+    --color-card-background: initial;
+    --color-table-header-bg: var(--color-dark-200);
+    --color-table-bg: white;
+    --color-table-border: var(--color-dark-300);
+  }
+
+  [data-theme="premier-league"] {
+    --color-primary: #2563eb;
+    --color-secondary: #42075b;
+    --color-header: var(--color-secondary);
+    --color-header-text: white;
+  }
+
+  [data-theme="eurobasket"] {
+    --color-primary: #ff6900;
+    --color-secondary: #002f26;
+    --color-tertiary: #00201b;
+    --color-header: transparent;
+    --color-header-text: white;
+    --color-card-background: var(--color-secondary);
+    --color-table-header-bg: transparent;
+    --color-table-bg: var(--color-tertiary);
+    --color-table-border: var(--color-secondary);
+  }
+
+  [data-theme="wimbledon"] {
+    --color-primary: #006633;
+    --color-secondary: #42075b;
+    --color-header: var(--color-primary);
+    --color-header-text: white;
+  }
 }

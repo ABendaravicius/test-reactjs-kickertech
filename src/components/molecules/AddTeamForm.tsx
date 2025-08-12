@@ -31,7 +31,7 @@ function AddTeamForm({
     e.preventDefault();
     setError("");
 
-    if (teamName.trim()) {
+    if (teamName) {
       const success = addPlayer(sportType, teamName.trim());
       if (success) {
         setTeamName("");
@@ -49,6 +49,7 @@ function AddTeamForm({
         <div className="space-y-3">
           <div className="flex gap-3">
             <input
+              id={`${entityName}-input`}
               ref={inputRef}
               type="text"
               value={teamName}
@@ -56,7 +57,7 @@ function AddTeamForm({
               placeholder={`${entityName} Name`}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
-            <Button type="submit" disabled={!teamName.trim()} className="w-fit">
+            <Button type="submit" disabled={!teamName} className="w-fit">
               Add
             </Button>
           </div>

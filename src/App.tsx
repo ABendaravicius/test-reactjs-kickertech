@@ -54,15 +54,19 @@ function AppContent() {
     <div className="min-h-screen bg-gray-100 p-8">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">
-          Sports Tournament Manager
+          Sports Standings Manager
         </h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <TournamentCard
             tableName={premierLeagueData.name}
             sportType={premierLeagueData.id}
             standings={premierLeagueStandings}
             showTableHeader={false}
+            headerClassName="text-2xl font-semibold"
+            iconName="soccer"
+            theme={premierLeagueData.id}
+            className="font-sans"
           >
             <div className="space-y-6">
               <AddTeamForm sportType={premierLeagueData.id} entityName="Team" />
@@ -77,21 +81,26 @@ function AppContent() {
             tableName={eurobasketData.name}
             sportType={eurobasketData.id}
             standings={eurobasketStandings}
+            headerClassName="text-2xl uppercase tracking-wider"
             iconName="basketball"
             displayMatchHistory
+            theme={eurobasketData.id}
+            className="font-sport text-white"
           >
-            <div className="flex gap-3 justify-between">
+            <div className="flex gap-3 justify-between text-sm">
               <Button
                 onClick={() => openModal("addTeam", "eurobasket", "Team")}
+                className="py-1.5! px-2!"
                 iconName="Plus"
-                iconSize={24}
+                iconSize={20}
               >
                 Add Team
               </Button>
               <Button
                 onClick={() => openModal("addScore", "eurobasket", "Team")}
+                className="py-1.5! px-2!"
                 iconName="Plus"
-                iconSize={24}
+                iconSize={20}
               >
                 Add Score
               </Button>
@@ -103,9 +112,12 @@ function AppContent() {
             sportType={wimbledonData.id}
             standings={wimbledonStandings}
             showTableHeader={false}
+            headerClassName="text-3xl font-semibold"
             iconName="tennis"
+            theme={wimbledonData.id}
+            className="font-mono"
           >
-            <div className="flex gap-3 justify-between">
+            <div className="flex gap-3 justify-between text-lg">
               <Button
                 onClick={() => openModal("addTeam", "wimbledon", "Player")}
                 iconName="Plus"
@@ -117,6 +129,7 @@ function AppContent() {
                 onClick={() => openModal("addScore", "wimbledon", "Player")}
                 iconName="Plus"
                 iconSize={24}
+                variant="secondary"
               >
                 Add Score
               </Button>

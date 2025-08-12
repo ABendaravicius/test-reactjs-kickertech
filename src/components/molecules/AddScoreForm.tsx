@@ -48,7 +48,7 @@ function AddScoreForm({
       return;
     }
 
-    if (!homeScore.trim() || !awayScore.trim()) {
+    if (!homeScore || !awayScore) {
       setError("Please enter scores for both teams");
       return;
     }
@@ -80,8 +80,7 @@ function AddScoreForm({
     onSuccess?.();
   };
 
-  const isFormValid =
-    homeTeamId && awayTeamId && homeScore.trim() && awayScore.trim();
+  const isFormValid = homeTeamId && awayTeamId && homeScore && awayScore;
 
   return (
     <div className="space-y-4">
@@ -90,6 +89,7 @@ function AddScoreForm({
         <div className="grid grid-cols-2 gap-3">
           <div>
             <select
+              id="home-team-select"
               value={homeTeamId}
               onChange={(e) => setHomeTeamId(e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -109,6 +109,7 @@ function AddScoreForm({
 
           <div>
             <select
+              id="away-team-select"
               value={awayTeamId}
               onChange={(e) => setAwayTeamId(e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -130,6 +131,7 @@ function AddScoreForm({
         <div className="grid grid-cols-2 gap-3">
           <div>
             <input
+              id="home-score-input"
               type="number"
               min="0"
               value={homeScore}
@@ -141,6 +143,7 @@ function AddScoreForm({
 
           <div>
             <input
+              id="away-score-input"
               type="number"
               min="0"
               value={awayScore}
