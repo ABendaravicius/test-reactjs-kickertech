@@ -64,7 +64,6 @@ function AppContent() {
             standings={premierLeagueStandings}
             showTableHeader={false}
             headerClassName="text-2xl font-semibold"
-            iconName="soccer"
             theme={premierLeagueData.id}
             className="font-sans"
           >
