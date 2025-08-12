@@ -89,7 +89,7 @@ function AppContent() {
             <div className="flex gap-3 justify-between text-sm">
               <Button
                 onClick={() => openModal("addTeam", "eurobasket", "Team")}
-                className="py-1.5! px-2!"
+                className="!py-1.5 !px-2"
                 iconName="Plus"
                 iconSize={20}
               >
@@ -97,7 +97,7 @@ function AppContent() {
               </Button>
               <Button
                 onClick={() => openModal("addScore", "eurobasket", "Team")}
-                className="py-1.5! px-2!"
+                className="!py-1.5 !px-2"
                 iconName="Plus"
                 iconSize={20}
               >

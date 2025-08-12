@@ -1,6 +1,6 @@
 # Sports Standings Manager
 
-**Arnas Bendaravicius's implementation of the KickerTech technical task**
+by: **Arnas Bendaravicius**
 
 A Single Page Application (SPA) for managing sports tournament standings with three tables: Premier League, Eurobasket, and Wimbledon. Users can add teams/players, input match results, and view dynamically updated standings tables.
 
