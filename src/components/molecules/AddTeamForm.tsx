@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTournament } from "@/contexts/TournamentContext";
 import type { SportType } from "@/types/tournament";
 import { Button } from "@/components";
@@ -7,16 +7,25 @@ interface AddTeamFormProps {
   sportType: SportType;
   entityName?: string; // "Team" or "Player"
   onSuccess?: () => void;
+  autoFocus?: boolean;
 }
 
 function AddTeamForm({
   sportType,
   entityName = "Team",
   onSuccess,
+  autoFocus = false,
 }: AddTeamFormProps) {
   const [teamName, setTeamName] = useState("");
   const [error, setError] = useState("");
   const { addPlayer } = useTournament();
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (autoFocus && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [autoFocus]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,6 +49,7 @@ function AddTeamForm({
         <div className="space-y-3">
           <div className="flex gap-3">
             <input
+              ref={inputRef}
               type="text"
               value={teamName}
               onChange={(e) => setTeamName(e.target.value)}

@@ -102,6 +102,7 @@ function AppContent() {
             tableName={wimbledonData.name}
             sportType={wimbledonData.id}
             standings={wimbledonStandings}
+            showTableHeader={false}
             iconName="tennis"
           >
             <div className="flex gap-3 justify-between">
@@ -137,6 +138,7 @@ function AppContent() {
               sportType={modalState.sportType as any}
               entityName={modalState.entityName}
               onSuccess={closeModal}
+              autoFocus={true}
             />
           )}
           {modalState.type === "addScore" && modalState.sportType && (

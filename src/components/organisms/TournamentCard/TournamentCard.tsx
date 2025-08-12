@@ -30,14 +30,14 @@ function TournamentCard({
 
   return (
     <div
-      className={`bg-white rounded-lg shadow-lg overflow-hidden ${className}`}
+      className={`flex flex-col bg-white rounded-lg shadow-lg overflow-hidden ${className}`}
     >
       <Header
         title={tableName}
         iconName={iconName}
         className="border-b border-gray-200"
       />
-      <div className="p-4 space-y-4">
+      <div className="flex-1 flex flex-col p-4 space-y-4">
         {children}
         {displayMatchHistory && <MatchHistory sportType={sportType} />}
         <Table
